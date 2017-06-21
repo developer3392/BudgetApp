@@ -17,6 +17,8 @@ import CoreData
 
 class periodSummaryViewController: UIViewController {
     private let segueAddTransactionDetailViewController = "SegueAddTransactionDetailViewController"
+    private let segueEditTransactionDetailViewController = "SegueEditTransactionDetailViewController"
+
     
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var balanceLabel: UILabel!
@@ -74,6 +76,14 @@ class periodSummaryViewController: UIViewController {
                 destinationViewController.managedObjectContext = persistentContainer.viewContext
             }
         }
+        guard let destinationViewController = segue.destination as? transactionDetailViewController else {return}
+        destinationViewController.managedObjectContext = persistentContainer.viewContext
+        
+        if let indexPath = tableView.indexPathForSelectedRow,segue.identifier == segueEditTransactionDetailViewController{
+            
+            destinationViewController.transaction = fetchedResultsController.object(at: indexPath)
+        }
+
     }
     
     private func setupView() {
@@ -123,13 +133,28 @@ extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
             if let indexPath = newIndexPath {
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
+            break;
         case .delete:
             if let indexPath = indexPath {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break;
-        default:
-            print("...")
+        case .update:
+            if let indexPath = indexPath {
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+            break;
+            
+        case .move:
+            if let indexPath = indexPath {
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                tableView.insertRows(at: [newIndexPath], with: .fade)
+            }
+            break;
+
         }
     }
     
@@ -181,5 +206,14 @@ extension periodSummaryViewController: UITableViewDataSource {
     }
     
 }
+extension periodSummaryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+}
+
 
 

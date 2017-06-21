@@ -31,10 +31,16 @@ class transactionDetailViewController: UIViewController {
     @IBOutlet var dateDate: UIDatePicker!
     
     var managedObjectContext: NSManagedObjectContext?
+    var transaction: Transaction?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add additional setup after loading the view if needed
+        if let transaction = transaction
+        {
+            txtDescription.text = transaction.txtDesc
+            txtAmount.text = String(describing: transaction.amount!)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -51,7 +57,8 @@ class transactionDetailViewController: UIViewController {
         guard let managedObjectContext = managedObjectContext else { return }
         guard let text = txtDescription.text, !text.isEmpty else { return }
         guard let text2 = txtAmount.text, !text2.isEmpty else { return }
-
+        
+        if transaction == nil{
         // Create Transaction
         let transaction = Transaction(context: managedObjectContext)
         
@@ -59,6 +66,17 @@ class transactionDetailViewController: UIViewController {
         transaction.txtDesc = txtDescription.text
         transaction.amount =  NSDecimalNumber(string: txtAmount.text)
         transaction.date = dateDate.date as NSDate
+        }
+        
+        if let transaction = transaction{
+            transaction.txtDesc = txtDescription.text
+            
+            transaction.amount =  NSDecimalNumber(string: txtAmount.text)
+            
+            transaction.date = dateDate.date as NSDate
+        }
+        
+
         
         self.dismiss(animated: true, completion: nil)
     }

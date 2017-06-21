@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -86,6 +86,7 @@
                                             <outlet property="txtAmount" destination="iMC-pm-OHZ" id="D3x-cy-fTq"/>
                                             <outlet property="txtDate" destination="BAN-3k-PaH" id="L4v-q1-jLc"/>
                                             <outlet property="txtDescription" destination="gXX-Cf-sZH" id="7S4-W8-ynd"/>
+                                            <segue destination="w2X-nd-g3x" kind="show" identifier="SegueEditTransactionDetailViewController" id="H1N-1T-Ige"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -289,7 +290,7 @@
                                 <state key="normal" title="Get Started"/>
                                 <connections>
                                     <action selector="pressedGetStarted:" destination="reA-L4-qQZ" eventType="touchUpInside" id="7zH-2K-Wya"/>
-                                    <segue destination="T07-cE-BrM" kind="show" id="9dG-LV-16M"/>
+                                    <segue destination="8zq-f6-K5G" kind="show" id="cA3-9V-2Qo"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please enter the following information to get started:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Wx-xX-ckd">
@@ -332,4 +333,8 @@
             <point key="canvasLocation" x="645.60000000000002" y="317.99100449775113"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="H1N-1T-Ige"/>
+        <segue reference="cA3-9V-2Qo"/>
+    </inferredMetricsTieBreakers>
 </document>
