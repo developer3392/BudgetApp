@@ -23,6 +23,8 @@ class periodSummaryViewController: UIViewController
     private let segueAddTransactionDetailViewController = "SegueAddTransactionDetailViewController"
     private let segueEditTransactionDetailViewController = "SegueEditTransactionDetailViewController"
 
+    @IBAction func Settings(_ sender: Any) {
+    }
     
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
@@ -311,6 +313,7 @@ extension periodSummaryViewController: UITableViewDataSource
             transaction.managedObjectContext?.delete(transaction)
         }
     }
+    
     
 }
 extension periodSummaryViewController: UITableViewDelegate

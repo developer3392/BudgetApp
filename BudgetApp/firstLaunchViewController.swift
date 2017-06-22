@@ -74,7 +74,7 @@ class firstLaunchViewController: UIViewController, UIPickerViewDataSource, UIPic
             dataValidationMessage.text = ""
             
             // Set user default values!
-            UserDefaults.standard.set(Double(budgetAmount.text!), forKey: "budgetAmount")
+            
             UserDefaults.standard.set(periodType.text, forKey: "periodType")
             UserDefaults.standard.set(startDate_DateType, forKey: "startDate")
         }
