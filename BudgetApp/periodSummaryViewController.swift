@@ -6,23 +6,26 @@
 //  date, and amount. Allows them the option to add, edit, 
 //  delete transactions. They may also select a button to 
 //  enter a settings tab.
+//
 //  periodSummaryViewController.swift
 //  BudgetApp
+
 //  Utilized tutorial to implement field functionalites.
 //  Credit to Bart Jacobs at cocoacasts.com.
-//
-
 //  Code for func sumTransactions() from Stacked Overflow. URL:
 //  https://stackoverflow.com/questions/14822618/core-data-sum-of-all-instances-attribute
+//
 
 import UIKit
 import CoreData
 
 class periodSummaryViewController: UIViewController
 {
+    //MARK: Properties    
     private let segueAddTransactionDetailViewController = "SegueAddTransactionDetailViewController"
     private let segueEditTransactionDetailViewController = "SegueEditTransactionDetailViewController"
 
+    
     @IBAction func Settings(_ sender: Any) {
     }
     
@@ -30,6 +33,7 @@ class periodSummaryViewController: UIViewController
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var currentBalance: UILabel!
     
+    // Retrieve Core Data into persistent container
     private let persistentContainer = NSPersistentContainer(name: "dataModel")
     private var transactionsTotal: Decimal = 0.0
 
@@ -51,11 +55,13 @@ class periodSummaryViewController: UIViewController
         return fetchedResultsController
     }()
     
+    //MARK: Initialization    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+            // Report error if unable to load
             if let error = error
             {
                 print("Unable to Load Persistent Store")
@@ -85,6 +91,7 @@ class periodSummaryViewController: UIViewController
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
     }
     
+    // Set table view properties
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == segueAddTransactionDetailViewController
@@ -95,6 +102,7 @@ class periodSummaryViewController: UIViewController
                 destinationViewController.managedObjectContext = persistentContainer.viewContext
             }
         }
+        // Safeguard
         guard let destinationViewController = segue.destination as? transactionDetailViewController else {return}
         destinationViewController.managedObjectContext = persistentContainer.viewContext
         
@@ -114,6 +122,7 @@ class periodSummaryViewController: UIViewController
     {
         var hasTransactions = false
         
+        // Obtain count
         if let transactions = fetchedResultsController.fetchedObjects
         {
             hasTransactions = transactions.count > 0
@@ -124,6 +133,7 @@ class periodSummaryViewController: UIViewController
         updateCurrentBalanceLabel()
     }
     
+    // Report memory warning concerning available space to the view controller
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
@@ -133,8 +143,10 @@ class periodSummaryViewController: UIViewController
     {
         do
         {
+            // Attempts to create a new private view context
             try persistentContainer.viewContext.save()
         }
+            // Error handling
         catch
         {
             print("Unable to Save Changes")
@@ -214,6 +226,7 @@ class periodSummaryViewController: UIViewController
 
 extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
     
+    // Edit transaction
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
     {
         tableView.beginUpdates()
@@ -226,6 +239,7 @@ extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
         updateCurrentBalanceLabel()
     }
     
+    // Handles table view values
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
     {
         switch (type)
@@ -272,14 +286,17 @@ extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
 
 extension periodSummaryViewController: UITableViewDataSource
 {
+    // Obtain transaction count
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         guard let transactions = fetchedResultsController.fetchedObjects else {return 0}
         return transactions.count
     }
     
+    // Add a new transaction
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
+        // Set cell
         guard let cell = tableView.dequeueReusableCell(withIdentifier: summaryTableViewCell.reuseIdentifier, for: indexPath) as? summaryTableViewCell else
         {
             fatalError("Unexpected Index Path")
@@ -303,6 +320,7 @@ extension periodSummaryViewController: UITableViewDataSource
         return cell
     }
     
+    // Delete transaction when table view item is swiped
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete
         {
@@ -316,6 +334,7 @@ extension periodSummaryViewController: UITableViewDataSource
     
     
 }
+    // Deselect row
 extension periodSummaryViewController: UITableViewDelegate
 {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)

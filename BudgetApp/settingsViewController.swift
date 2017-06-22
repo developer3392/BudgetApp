@@ -1,9 +1,13 @@
 //
+//  CPSC362 Group Project
+//  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
+//  This controller handles the Settings scene.
+//  User may change their budget amount by entering a new amount.
+//  New amount will be updated in the UserDefaults budget
+//  variable.
+//
 //  settingsViewController.swift
 //  BudgetApp
-//
-//  Created by Jeffrey Guerra on 6/22/17.
-//  Copyright © 2017 Chary. All rights reserved.
 //
 
 import UIKit
@@ -11,8 +15,6 @@ import UIKit
 class settingsViewController: UIViewController {
     
     @IBOutlet weak var currentBudget: UILabel!
-    
-   
     
     override func viewDidLoad() {
         let budgetAmt = UserDefaults.standard.double(forKey:"budgetAmount")
@@ -27,12 +29,7 @@ class settingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-
-    
     @IBOutlet weak var newBudget: UITextField!
-    
     
     @IBAction func settingsSubmit(_ sender: Any) {
         UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")

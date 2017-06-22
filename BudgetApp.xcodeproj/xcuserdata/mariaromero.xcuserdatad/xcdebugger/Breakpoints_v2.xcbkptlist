@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "BudgetApp/periodSummaryViewController.swift"
-            timestampString = "519545872.117474"
+            timestampString = "519868338.627183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "periodSummaryViewController"
-            landmarkType = "3">
+            startingLineNumber = "20"
+            endingLineNumber = "20">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -1,11 +1,15 @@
 //
+//  CPSC362 Group Project
+//  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
+//  This controller handles the Welcome scene. It initiates during
+//  the application's first time run. Obtains budget amount, start date,
+//  period type and saves them in the UserDefaults class. Balance
+//  is initiated.
+//
 //  firstLaunchViewController.swift
 //  BudgetApp
 //
-//  Created by Charles Bucher on 6/17/17.
-//  Copyright © 2017 Chary. All rights reserved.
 //  Utitlized mulitple YouTube tutorials to learn about picker view
-
 //  [YouTube Channel] - "Title of Video"
 //  Quick Reference - "UIPickerView as input for UITextField in Swift"
 //  Jared Davidson - "Using Picker Views (Swift : Xcode)"
@@ -13,6 +17,7 @@
 //  The Swift Guy - "How To Use A Picker View In Xcode 8 (Swift 3.0)"
 //  bryce kroecke - "Detecting first time app launch in swift 3.0"
 //  The Swift Guy - "How To Store Data Permanently With User Defaults In xCode 8 (Swift 3.0)"
+//
 
 import UIKit
 

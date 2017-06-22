@@ -69,12 +69,12 @@
 				937F406C1EECE98300C7BD93 /* periodSummaryViewController.swift */,
 				937F40701EECF06F00C7BD93 /* summaryTableViewCell.swift */,
 				059B939C1EF833D8000C60F5 /* firstLaunchViewController.swift */,
+				005C44CB1EFC1F730035E67C /* settingsViewController.swift */,
 				937F404C1EECC93600C7BD93 /* Main.storyboard */,
 				937F40521EECC93600C7BD93 /* Assets.xcassets */,
 				937F40651EECD9D500C7BD93 /* dataModel.xcdatamodeld */,
 				937F40541EECC93600C7BD93 /* LaunchScreen.storyboard */,
 				937F40571EECC93600C7BD93 /* Info.plist */,
-				005C44CB1EFC1F730035E67C /* settingsViewController.swift */,
 			);
 			path = BudgetApp;
 			sourceTree = "<group>";

@@ -15,17 +15,9 @@
 import UIKit
 import CoreData
 
-
-extension Double
-{
-    func truncate(places : Int)-> Double
-    {
-        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
-    }
-}
-
 class transactionDetailViewController: UIViewController {
 
+    //MARK: Properties    
     @IBOutlet var txtDescription: UITextField!
     @IBOutlet var txtAmount: UITextField!
     @IBOutlet var dateDate: UIDatePicker!
@@ -33,6 +25,7 @@ class transactionDetailViewController: UIViewController {
     var managedObjectContext: NSManagedObjectContext?
     var transaction: Transaction?
     
+    //MARK: Initialization    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add additional setup after loading the view if needed
@@ -49,11 +42,14 @@ class transactionDetailViewController: UIViewController {
         txtDescription.becomeFirstResponder()
     }
     
+    // Cancel button is pressed: return to previous scene
     @IBAction func cancelAsSender(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
 
+    // Save button is pressed
     @IBAction func save(sender: UIBarButtonItem) {
+        // Safeguard against empty text box fields
         guard let managedObjectContext = managedObjectContext else { return }
         guard let text = txtDescription.text, !text.isEmpty else { return }
         guard let text2 = txtAmount.text, !text2.isEmpty else { return }
@@ -68,6 +64,7 @@ class transactionDetailViewController: UIViewController {
         transaction.date = dateDate.date as NSDate
         }
         
+        // Set transaction values
         if let transaction = transaction{
             transaction.txtDesc = txtDescription.text
             
@@ -77,7 +74,7 @@ class transactionDetailViewController: UIViewController {
         }
         
 
-        
+        // Return to previous screen 
         self.dismiss(animated: true, completion: nil)
     }
 
