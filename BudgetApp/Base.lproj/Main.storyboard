@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B9k-9g-0O7">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Summary" id="bUO-Wx-GuF">
                                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="fLY-2J-c7L">
@@ -46,7 +45,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="35"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Chi-I0-LG8" id="wzQ-pq-Q40">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="34.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXX-Cf-sZH">
@@ -96,7 +95,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLz-T2-1E3">
-                                <rect key="frame" x="43" y="154" width="140" height="53"/>
+                                <rect key="frame" x="43" y="110" width="140" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="140" id="B3z-O2-QB0"/>
                                     <constraint firstAttribute="height" constant="53" id="otP-i7-hBs"/>
@@ -105,8 +104,9 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ese-5B-9ge">
-                                <rect key="frame" x="191" y="154" width="140" height="53"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TB3-WN-JY8">
+                                <rect key="frame" x="191" y="110" width="168" height="53"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -115,22 +115,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bLz-T2-1E3" firstAttribute="leading" secondItem="0IY-o5-2VC" secondAttribute="leadingMargin" constant="27" id="7nU-7L-Oiq"/>
-                            <constraint firstItem="ese-5B-9ge" firstAttribute="leading" secondItem="bLz-T2-1E3" secondAttribute="trailing" constant="8" symbolic="YES" id="BNP-Mi-Cwt"/>
-                            <constraint firstItem="bLz-T2-1E3" firstAttribute="baseline" secondItem="ese-5B-9ge" secondAttribute="baseline" id="C2G-Wg-cFL"/>
                             <constraint firstItem="B9k-9g-0O7" firstAttribute="top" secondItem="2ZA-rj-rmj" secondAttribute="bottom" id="G1a-iH-Jfe"/>
                             <constraint firstItem="bLz-T2-1E3" firstAttribute="top" secondItem="B9k-9g-0O7" secondAttribute="bottom" constant="46" id="bv2-zH-YNh"/>
                             <constraint firstAttribute="trailing" secondItem="B9k-9g-0O7" secondAttribute="trailing" id="dN1-1a-vKM"/>
                             <constraint firstItem="B9k-9g-0O7" firstAttribute="trailing" secondItem="O77-sf-LFG" secondAttribute="trailing" id="eng-pZ-86X"/>
                             <constraint firstItem="B9k-9g-0O7" firstAttribute="leading" secondItem="O77-sf-LFG" secondAttribute="leading" id="jqp-r7-DNU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ese-5B-9ge" secondAttribute="trailing" constant="28" id="lIg-jz-oCR"/>
-                            <constraint firstItem="bLz-T2-1E3" firstAttribute="firstBaseline" secondItem="ese-5B-9ge" secondAttribute="firstBaseline" id="oAi-ms-gr4"/>
                             <constraint firstItem="O77-sf-LFG" firstAttribute="bottom" secondItem="t2C-pX-Bzc" secondAttribute="top" id="syc-Qi-haq"/>
                             <constraint firstItem="B9k-9g-0O7" firstAttribute="leading" secondItem="0IY-o5-2VC" secondAttribute="leading" id="zu8-gh-aWz"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nI5-EY-uqy"/>
                     <connections>
-                        <outlet property="balanceLabel" destination="ese-5B-9ge" id="ONE-Ri-yOY"/>
+                        <outlet property="currentBalance" destination="TB3-WN-JY8" id="yv1-bk-hKg"/>
                         <outlet property="tableView" destination="O77-sf-LFG" id="KaB-On-HFx"/>
                     </connections>
                 </viewController>
@@ -172,7 +168,7 @@
                                 </date>
                             </datePicker>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdY-EU-Op9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="Transaction Detail" id="UUE-V4-tBb">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nuq-r6-FqV">

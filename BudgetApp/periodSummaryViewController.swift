@@ -12,22 +12,28 @@
 //  Credit to Bart Jacobs at cocoacasts.com.
 //
 
+//  Code for func sumTransactions() from Stacked Overflow. URL:
+//  https://stackoverflow.com/questions/14822618/core-data-sum-of-all-instances-attribute
+
 import UIKit
 import CoreData
 
-class periodSummaryViewController: UIViewController {
+class periodSummaryViewController: UIViewController
+{
     private let segueAddTransactionDetailViewController = "SegueAddTransactionDetailViewController"
     private let segueEditTransactionDetailViewController = "SegueEditTransactionDetailViewController"
 
     
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
-    @IBOutlet var balanceLabel: UILabel!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet weak var currentBalance: UILabel!
     
     private let persistentContainer = NSPersistentContainer(name: "dataModel")
+    private var transactionsTotal: Decimal = 0.0
 
 
-    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Transaction> = {
+    fileprivate lazy var fetchedResultsController: NSFetchedResultsController<Transaction> =
+    {
         // Create Fetch Request
         let fetchRequest: NSFetchRequest<Transaction> = Transaction.fetchRequest()
         
@@ -43,35 +49,46 @@ class periodSummaryViewController: UIViewController {
         return fetchedResultsController
     }()
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
-            if let error = error {
+            if let error = error
+            {
                 print("Unable to Load Persistent Store")
                 print("\(error), \(error.localizedDescription)")
                 
-            } else {
+            }
+            else
+            {
                 self.setupView()
                 
-            do {
-                try self.fetchedResultsController.performFetch()
-            } catch {
-                let fetchError = error as NSError
-                print("Unable to Perform Fetch Request")
-                print("\(fetchError), \(fetchError.localizedDescription)")
-            }
+                do
+                {
+                    try self.fetchedResultsController.performFetch()
+                }
+                catch
+                {
+                    let fetchError = error as NSError
+                    print("Unable to Perform Fetch Request")
+                    print("\(fetchError), \(fetchError.localizedDescription)")
+                }
             
-            self.updateView()
+                self.updateView()
+                self.updateCurrentBalanceLabel()
             }
         }
     
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == segueAddTransactionDetailViewController {
-            if let destinationViewController = segue.destination as? transactionDetailViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == segueAddTransactionDetailViewController
+        {
+            if let destinationViewController = segue.destination as? transactionDetailViewController
+            {
                 
                 destinationViewController.managedObjectContext = persistentContainer.viewContext
             }
@@ -79,78 +96,165 @@ class periodSummaryViewController: UIViewController {
         guard let destinationViewController = segue.destination as? transactionDetailViewController else {return}
         destinationViewController.managedObjectContext = persistentContainer.viewContext
         
-        if let indexPath = tableView.indexPathForSelectedRow,segue.identifier == segueEditTransactionDetailViewController{
-            
+        if let indexPath = tableView.indexPathForSelectedRow,segue.identifier == segueEditTransactionDetailViewController
+        {
             destinationViewController.transaction = fetchedResultsController.object(at: indexPath)
         }
-
     }
     
-    private func setupView() {
+    private func setupView()
+    {
         updateView()
+        updateCurrentBalanceLabel()
     }
 
-    fileprivate func updateView() {
+    fileprivate func updateView()
+    {
         var hasTransactions = false
         
-        if let transactions = fetchedResultsController.fetchedObjects {
+        if let transactions = fetchedResultsController.fetchedObjects
+        {
             hasTransactions = transactions.count > 0
         }
         
+        
         tableView.isHidden = !hasTransactions
+        updateCurrentBalanceLabel()
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
     }
     
-    func applicationDidEnterBackground(_ notification: Notification) {
-        do {
+    func applicationDidEnterBackground(_ notification: Notification)
+    {
+        do
+        {
             try persistentContainer.viewContext.save()
-        } catch {
+        }
+        catch
+        {
             print("Unable to Save Changes")
             print("\(error), \(error.localizedDescription)")
         }
     }
     
+    // Used to find the sum of all transactions in table
+    // NOTE: Missing a filter functionality currently.
+    func sumTransactions() -> Double
+    {
+        // Ensure persistant store is up-to-date
+        do
+        {
+            try self.persistentContainer.viewContext.save()
+        }
+        catch let error as NSError
+        {
+            NSLog("Error saving: \(error.localizedDescription)")
+        }
+        
+        var amountTotal : Double = 0.00
+        
+        // Step 1:
+        // - Create the summing expression on the amount attribute.
+        // - Name the expression result as 'amountTotal'.
+        // - Assign the expression result data type as a Double.
+        
+        let expression = NSExpressionDescription()
+        expression.expression =  NSExpression(forFunction: "sum:", arguments:[NSExpression(forKeyPath: "amount")])
+        expression.name = "amountTotal";
+        expression.expressionResultType = NSAttributeType.doubleAttributeType
+        
+        // Step 2:
+        // - Create the fetch request for the Transaction entity.
+        // - Indicate that the fetched properties are those that were described in `expression`.
+        // - Indicate that the result type is a dictionary.
+        
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Transaction")
+        fetchRequest.propertiesToFetch = [expression]
+        
+        fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType
+        
+        // Step 3:
+        // - Execute the fetch request which returns an array.
+        // - There will only be one result. Get the first array element and assign to 'resultMap'.
+        // - The summed amount value is in the dictionary as 'amountTotal'. This will be summed value.
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        do
+        {
+            let results = try context.fetch(fetchRequest)
+            let resultMap = results[0] as! [String:Double]
+            amountTotal = resultMap["amountTotal"]!
+        }
+        catch let error as NSError
+        {
+            NSLog("Error when summing amounts: \(error.localizedDescription)")
+        }
+        
+        return amountTotal
+    }
+    
+    // Called to update the current balance label.
+    func updateCurrentBalanceLabel()
+    {
+        // Calculate balance
+        let transactionsTotal: Double = sumTransactions()
+        let budgetedAmount: Double = UserDefaults.standard.double(forKey: "budgetAmount")
+        let balance = budgetedAmount - transactionsTotal
+        
+        // Update label
+        currentBalance.text = String(String(format: "$%.2f", balance))
+    }
 }
 
 extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+    {
         tableView.beginUpdates()
     }
     
-    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+    {
         tableView.endUpdates()
-        
         updateView()
+        updateCurrentBalanceLabel()
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        switch (type) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+    {
+        switch (type)
+        {
         case .insert:
-            if let indexPath = newIndexPath {
+            if let indexPath = newIndexPath
+            {
                 tableView.insertRows(at: [indexPath], with: .fade)
             }
             break;
         case .delete:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             break;
         case .update:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             }
             break;
             
         case .move:
-            if let indexPath = indexPath {
+            if let indexPath = indexPath
+            {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
-            if let newIndexPath = newIndexPath {
+            if let newIndexPath = newIndexPath
+            {
                 tableView.insertRows(at: [newIndexPath], with: .fade)
             }
             break;
@@ -158,25 +262,27 @@ extension periodSummaryViewController: NSFetchedResultsControllerDelegate {
         }
     }
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType)
+    {
     }
     
 }
 
-extension periodSummaryViewController: UITableViewDataSource {
-    
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension periodSummaryViewController: UITableViewDataSource
+{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
         guard let transactions = fetchedResultsController.fetchedObjects else {return 0}
         return transactions.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: summaryTableViewCell.reuseIdentifier, for: indexPath) as? summaryTableViewCell else {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: summaryTableViewCell.reuseIdentifier, for: indexPath) as? summaryTableViewCell else
+        {
             fatalError("Unexpected Index Path")
         }
-        
+
         // Fetch Transaction
         let transaction = fetchedResultsController.object(at: indexPath)
         
@@ -196,7 +302,8 @@ extension periodSummaryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        if editingStyle == .delete
+        {
             // Fetch Transaction
             let transaction = fetchedResultsController.object(at: indexPath)
             
@@ -206,9 +313,10 @@ extension periodSummaryViewController: UITableViewDataSource {
     }
     
 }
-extension periodSummaryViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+extension periodSummaryViewController: UITableViewDelegate
+{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
