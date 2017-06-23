@@ -12,7 +12,8 @@
 
 import UIKit
 
-class summaryTableViewCell: UITableViewCell {
+class summaryTableViewCell: UITableViewCell
+{
     static let reuseIdentifier = "reuseTableCell"
     
     // Table view variables
@@ -21,7 +22,8 @@ class summaryTableViewCell: UITableViewCell {
     @IBOutlet weak var txtDate: UILabel!
     @IBOutlet weak var txtCat: UILabel!
  
-    override func awakeFromNib() {
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
     }
 }

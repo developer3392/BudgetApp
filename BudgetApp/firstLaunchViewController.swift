@@ -79,9 +79,17 @@ class firstLaunchViewController: UIViewController, UIPickerViewDataSource, UIPic
             dataValidationMessage.text = ""
             
             // Set user default values!
-            
             UserDefaults.standard.set(periodType.text, forKey: "periodType")
-            UserDefaults.standard.set(startDate_DateType, forKey: "startDate")
+            
+            // Find componenets from date
+            let myCalendar = Calendar(identifier: .gregorian)
+            let startDateMonth = myCalendar.component(.month, from: startDate_DateType!)
+            let startDateDay = myCalendar.component(.day, from: startDate_DateType!)
+            let startDateYear = myCalendar.component(.year, from: startDate_DateType!)
+
+            UserDefaults.standard.set(startDateMonth, forKey: "startDateMonth")
+            UserDefaults.standard.set(startDateDay, forKey: "startDateDay")
+            UserDefaults.standard.set(startDateYear, forKey: "startDateYear")
         }
         else
         {

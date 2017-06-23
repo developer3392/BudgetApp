@@ -36,7 +36,8 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     let categories = ["Groceries", "Dining", "Gas", "Education", "Housing", "Bills", "Automotive", "Entertainment", "Other"]
     
     //MARK: Initialization    
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         createCategoryPicker()  // Initialize category picker
         createDatePicker() // Initialize date picker
@@ -51,7 +52,8 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     }
     
     // Set focus to Description
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool)
+    {
         super.viewDidAppear(animated)
         
         txtDescription.becomeFirstResponder()
@@ -145,7 +147,8 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     }
 
     // Save button is pressed
-    @IBAction func save(sender: UIBarButtonItem) {
+    @IBAction func save(sender: UIBarButtonItem)
+    {
         // Safeguard against empty text box fields
         guard let managedObjectContext = managedObjectContext else { return }
         guard let text = txtDescription.text, !text.isEmpty else { return }
@@ -166,19 +169,21 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
             return
         }
         
-        if transaction == nil{
-        // Create Transaction
-        let transaction = Transaction(context: managedObjectContext)
-        
-        // Configure Transaction
-        transaction.txtDesc = txtDescription.text
-        transaction.amount = NSDecimalNumber(string: txtAmount.text)
-        transaction.date = datePicker.date as NSDate
-        transaction.category = txtCategory.text
+        if transaction == nil
+        {
+            // Create Transaction
+            let transaction = Transaction(context: managedObjectContext)
+            
+            // Configure Transaction
+            transaction.txtDesc = txtDescription.text
+            transaction.amount = NSDecimalNumber(string: txtAmount.text)
+            transaction.date = datePicker.date as NSDate
+            transaction.category = txtCategory.text
         }
         
         // Set transaction values
-        if let transaction = transaction{
+        if let transaction = transaction
+        {
             transaction.txtDesc = txtDescription.text
             transaction.amount = NSDecimalNumber(string: txtAmount.text)
             transaction.date = datePicker.date as NSDate

@@ -26,7 +26,8 @@ class periodSummaryViewController: UIViewController
     private let segueEditTransactionDetailViewController = "SegueEditTransactionDetailViewController"
 
     
-    @IBAction func Settings(_ sender: Any) {
+    @IBAction func Settings(_ sender: Any)
+    {
     }
     
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!

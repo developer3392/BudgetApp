@@ -12,11 +12,14 @@
 
 import UIKit
 
-class settingsViewController: UIViewController {
+class settingsViewController: UIViewController
+{
     
     @IBOutlet weak var currentBudget: UILabel!
-    
-    override func viewDidLoad() {
+    @IBOutlet weak var newBudget: UITextField!
+
+    override func viewDidLoad()
+    {
         let budgetAmt = UserDefaults.standard.double(forKey:"budgetAmount")
         currentBudget.text = String(String(format: "$%.2f", budgetAmt))
         super.viewDidLoad()
@@ -24,24 +27,17 @@ class settingsViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBOutlet weak var newBudget: UITextField!
-    
-    @IBAction func settingsSubmit(_ sender: Any) {
+    //MARK: Actions
+    @IBAction func settingsSubmit(_ sender: Any)
+    {
         UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
     }
-    
-    
-    
-   
-    
-   // @IBAction func settingsSubmit
-    
-
     
     /*
     // MARK: - Navigation
@@ -52,5 +48,4 @@ class settingsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
