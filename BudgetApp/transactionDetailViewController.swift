@@ -21,11 +21,12 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     //MARK: Properties    
     @IBOutlet weak var txtDescription: UITextField!
     @IBOutlet weak var txtAmount: UITextField!
-    @IBOutlet weak var dateDate: UIDatePicker!
+    @IBOutlet weak var dDate: UITextField!
     @IBOutlet weak var txtCategory: UITextField!
-    @IBOutlet weak var catPickerView: UIPickerView!
     
+    let datePicker = UIDatePicker()
     let categoryPicker = UIPickerView()
+    private var startDate_DateType: Date?
     var managedObjectContext: NSManagedObjectContext?
     var transaction: Transaction?
     
@@ -38,6 +39,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         createCategoryPicker()  // Initialize category picker
+        createDatePicker() // Initialize date picker
         
         // Add additional setup after loading the view if needed
         if let transaction = transaction
@@ -78,6 +80,38 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         return categories[row]
     }
     
+    // Date
+    func createDatePicker()
+    {
+        // Format date picker
+        datePicker.datePickerMode = .date
+        
+        // Create date picker toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // Done item on toolbar
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(dateDonePressed))
+        toolbar.setItems([doneButton], animated: false)
+        
+        dDate.inputAccessoryView = toolbar
+        
+        // Assigning date picker to text field
+        dDate.inputView = datePicker
+    }
+    
+    func dateDonePressed()
+    {
+        // Format date picker
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        // Set text box value
+        dDate.text = dateFormatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
     // Category
     func createCategoryPicker()
     {
@@ -105,7 +139,6 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         self.view.endEditing(true)
     }
     
-    
     // Cancel button is pressed: return to previous scene
     @IBAction func cancelAsSender(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -118,6 +151,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         guard let text = txtDescription.text, !text.isEmpty else { return }
         guard let text2 = txtAmount.text, !text2.isEmpty else { return }
         guard let cat = txtCategory.text, !cat.isEmpty else { return }
+        guard let date = dDate.text, !date.isEmpty else { return }
         // Check value is a decimal
         if let transAmount = Double(txtAmount.text!)
         {
@@ -132,32 +166,26 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
             return
         }
         
-        
         if transaction == nil{
         // Create Transaction
         let transaction = Transaction(context: managedObjectContext)
         
         // Configure Transaction
         transaction.txtDesc = txtDescription.text
-        transaction.amount =  NSDecimalNumber(string: txtAmount.text)
-        transaction.date = dateDate.date as NSDate
+        transaction.amount = NSDecimalNumber(string: txtAmount.text)
+        transaction.date = datePicker.date as NSDate
         transaction.category = txtCategory.text
         }
         
         // Set transaction values
         if let transaction = transaction{
             transaction.txtDesc = txtDescription.text
-            
             transaction.amount = NSDecimalNumber(string: txtAmount.text)
-            
-            transaction.date = dateDate.date as NSDate
-            
+            transaction.date = datePicker.date as NSDate
             transaction.category = txtCategory.text
         }
         
-
         // Return to previous screen 
         self.dismiss(animated: true, completion: nil)
     }
-
 }

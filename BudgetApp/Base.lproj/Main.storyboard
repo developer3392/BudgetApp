@@ -224,28 +224,30 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="WKn-RK-KGB">
-                                <rect key="frame" x="0.0" y="230" width="375" height="204"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="204" id="LZv-nf-RnB"/>
-                                </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="518835548.03293103">
-                                    <!--2017-06-11 00:59:08 +0000-->
-                                </date>
-                            </datePicker>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xo5-FC-UEg">
+                                <rect key="frame" x="127" y="230" width="232" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G3i-sF-PjA">
+                                <rect key="frame" x="79" y="230" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="I2A-mz-SpP" firstAttribute="trailing" secondItem="kqh-OX-ATq" secondAttribute="trailing" id="0nO-uL-7FH"/>
                             <constraint firstItem="Bnl-Rk-MAZ" firstAttribute="top" secondItem="I2A-mz-SpP" secondAttribute="bottom" constant="8" symbolic="YES" id="11x-Hd-PVb"/>
                             <constraint firstItem="EHq-kw-Knt" firstAttribute="top" secondItem="yek-cq-jxj" secondAttribute="bottom" constant="8" symbolic="YES" id="1na-Fb-2na"/>
-                            <constraint firstItem="WKn-RK-KGB" firstAttribute="trailing" secondItem="fdY-EU-Op9" secondAttribute="trailing" id="4iY-1J-mZw"/>
-                            <constraint firstItem="WKn-RK-KGB" firstAttribute="leading" secondItem="fdY-EU-Op9" secondAttribute="leading" id="7nt-nX-fB2"/>
                             <constraint firstAttribute="trailing" secondItem="fdY-EU-Op9" secondAttribute="trailing" id="BdB-ur-Moi"/>
                             <constraint firstItem="EHq-kw-Knt" firstAttribute="bottom" secondItem="Bnl-Rk-MAZ" secondAttribute="bottom" id="EEu-iF-UME"/>
                             <constraint firstItem="yek-cq-jxj" firstAttribute="top" secondItem="I2A-mz-SpP" secondAttribute="top" id="Gmx-ZS-siZ"/>
                             <constraint firstItem="YHw-Em-bbU" firstAttribute="leading" secondItem="aOJ-rx-7ra" secondAttribute="leadingMargin" constant="9" id="Hj8-Vo-CRE"/>
-                            <constraint firstItem="WKn-RK-KGB" firstAttribute="top" secondItem="EHq-kw-Knt" secondAttribute="bottom" constant="8" symbolic="YES" id="Kaw-xK-2OR"/>
                             <constraint firstItem="I2A-mz-SpP" firstAttribute="top" secondItem="kqh-OX-ATq" secondAttribute="bottom" constant="8" symbolic="YES" id="OQ4-Ix-IfD"/>
                             <constraint firstItem="I2A-mz-SpP" firstAttribute="trailing" secondItem="Bnl-Rk-MAZ" secondAttribute="trailing" id="WAh-4U-xq0"/>
                             <constraint firstItem="EHq-kw-Knt" firstAttribute="leading" secondItem="aOJ-rx-7ra" secondAttribute="leadingMargin" constant="28" id="ZUb-el-BZF"/>
@@ -265,7 +267,7 @@
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="dateDate" destination="WKn-RK-KGB" id="9pW-6b-8oc"/>
+                        <outlet property="dDate" destination="Xo5-FC-UEg" id="h3P-XD-q4t"/>
                         <outlet property="txtAmount" destination="I2A-mz-SpP" id="0I7-JM-HjC"/>
                         <outlet property="txtCategory" destination="Bnl-Rk-MAZ" id="sGU-Tj-H0R"/>
                         <outlet property="txtDescription" destination="kqh-OX-ATq" id="BU1-8O-yH3"/>
