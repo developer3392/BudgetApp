@@ -116,6 +116,9 @@ class periodSummaryViewController: UIViewController
         {
             destinationViewController.transaction = fetchedResultsController.object(at: indexPath)
         }
+        
+        // Ensure data in User Defaults is up to date
+        UserDefaults.standard.synchronize()
     }
     
     private func setupView()

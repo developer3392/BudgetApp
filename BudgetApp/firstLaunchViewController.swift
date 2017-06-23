@@ -73,36 +73,6 @@ class firstLaunchViewController: UIViewController, UIPickerViewDataSource, UIPic
     //MARK: Actions
     @IBAction func pressedGetStarted(_ sender: UIButton)
     {
-        /*
-        if validateData()
-        {
-            print("We are here")
-            finishedSettingUp = true // User entered all information, so we will never come back to this view controller
-            dataValidationMessage.text = ""
-            
-            
-            // Find componenets from date
-            let myCalendar = Calendar(identifier: .gregorian)
-            let startDateMonth = myCalendar.component(.month, from: startDate_DateType!)
-            let startDateDay = myCalendar.component(.day, from: startDate_DateType!)
-            let startDateYear = myCalendar.component(.year, from: startDate_DateType!)
-
-            UserDefaults.standard.set(startDateMonth, forKey: "startDateMonth")
-            UserDefaults.standard.set(startDateDay, forKey: "startDateDay")
-            UserDefaults.standard.set(startDateYear, forKey: "startDateYear")
-            
-            print("periodType.text! = \(periodType.text!)")
-            UserDefaults.standard.set(periodType.text!, forKey: "periodType")
-            print("UserDefaults.standard.string(forKey: \"periodType\") = \(UserDefaults.standard.string(forKey: "periodType"))")
-            
-            // Ensure all data is written to disk before moving on.
-            _ = UserDefaults.standard.synchronize()
-        }
-        else
-        {
-            dataValidationMessage.text = "One or more fields were not entered correctly. Please try again."
-        }
-        */
     }
     
     //MARK: Navigation
@@ -130,7 +100,7 @@ class firstLaunchViewController: UIViewController, UIPickerViewDataSource, UIPic
             UserDefaults.standard.set(Double(budgetAmount.text!), forKey: "budgetAmount")
             
             // Ensure all data is written to disk before moving on.
-            _ = UserDefaults.standard.synchronize()
+            UserDefaults.standard.synchronize()
             
             // Ensure period is up-to-date, in the off-chance the user entered a past period
             let dateHelper = DateHandler()

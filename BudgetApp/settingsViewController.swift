@@ -17,6 +17,7 @@ class settingsViewController: UIViewController
     
     @IBOutlet weak var currentBudget: UILabel!
     @IBOutlet weak var newBudget: UITextField!
+    @IBOutlet weak var dataValidationMessage: UILabel!
 
     override func viewDidLoad()
     {
@@ -34,21 +35,39 @@ class settingsViewController: UIViewController
     }
     
     //MARK: Actions
+    // Code when settings button is pressed under "shouldPerformSegue", as what needs
+    // to happen is time sensitive, and shouldPerformSegue is called first
     @IBAction func settingsSubmit(_ sender: Any)
     {
-        UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
-        
-        // Ensure all data is written to disk before moving on.
-        _ = UserDefaults.synchronize(UserDefaults.standard)
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
     }
-    */
+    
+    // Will perform data validation, as well as saving newly entered amount to User Defaults class
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool
+    {
+        let safeAmount: Double = Double(newBudget.text!) ?? 0.00
+    
+        if safeAmount <= 0
+        {
+            dataValidationMessage.text = "One or more fields were not entered correctly. Please try again."
+            return false // User is not ready to seque, as they didn't enter a valid budget amount
+        }
+        else
+        {
+            // Update user defaults
+            UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
+            
+            // Save to disk
+            UserDefaults.standard.synchronize()
+            
+            dataValidationMessage.text = ""
+            return true // User is ready to segue as they entered a valid amount
+        }
+    }
 }
