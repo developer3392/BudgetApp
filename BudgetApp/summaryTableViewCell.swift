@@ -1,7 +1,7 @@
 //
 //  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
-//  This controller declares the table view variables
+//  This controller declares the table view variables.
 //
 //  summaryTableViewCell.swift
 //  BudgetApp
@@ -21,7 +21,6 @@ class summaryTableViewCell: UITableViewCell {
     @IBOutlet weak var txtDate: UILabel!
     @IBOutlet weak var txtCat: UILabel!
  
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

@@ -117,7 +117,21 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         guard let managedObjectContext = managedObjectContext else { return }
         guard let text = txtDescription.text, !text.isEmpty else { return }
         guard let text2 = txtAmount.text, !text2.isEmpty else { return }
-        guard let cat = txtCategory.text, !cat.isEmpty else {return}
+        guard let cat = txtCategory.text, !cat.isEmpty else { return }
+        // Check value is a decimal
+        if let transAmount = Double(txtAmount.text!)
+        {
+            // Check for negative value
+            if transAmount < 0
+            {
+                return
+            }
+        }
+        else
+        {
+            return
+        }
+        
         
         if transaction == nil{
         // Create Transaction
@@ -134,7 +148,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         if let transaction = transaction{
             transaction.txtDesc = txtDescription.text
             
-            transaction.amount =  NSDecimalNumber(string: txtAmount.text)
+            transaction.amount = NSDecimalNumber(string: txtAmount.text)
             
             transaction.date = dateDate.date as NSDate
             
