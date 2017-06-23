@@ -1,5 +1,5 @@
 //
-//  CPSC362 Group Project
+//  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
 //  This controller handles the Settings scene.
 //  User may change their budget amount by entering a new amount.

@@ -1,5 +1,5 @@
 //
-//  CPSC362 Group Project
+//  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
 //  This view controller displays the user budget balance, 
 //  table view of their transactions including description, 
@@ -33,7 +33,7 @@ class periodSummaryViewController: UIViewController
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var currentBalance: UILabel!
     
-    // Retrieve Core Data into persistent container
+    // Declare Core Data persistent container
     private let persistentContainer = NSPersistentContainer(name: "dataModel")
     private var transactionsTotal: Decimal = 0.0
 
@@ -316,6 +316,9 @@ extension periodSummaryViewController: UITableViewDataSource
         
         // Set date cell value
         cell.txtDate.text = dateFormatter.string(for: transaction.date)
+        
+        // Set category
+        cell.txtCat.text = transaction.category
         
         return cell
     }

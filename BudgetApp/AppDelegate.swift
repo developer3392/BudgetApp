@@ -1,9 +1,16 @@
 //  
-//  CPSC362 
+//  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
-
+//  This program enables users to keep track of a current balance based on a budget amount
+//  and individual transactions entered by the user. At first-time launch the user is 
+//  asked for their budget amount, period type, and start date. The user is taken to a 
+//  summary page which displays their current balance and a list of the current period's 
+//  transactions. They have the ability to navigate to a transaction detail scene which 
+//  allows them to enter a description, amount, category type, and date. They are also able
+//  to navigate to a settings scene where they may update their budget amount for the 
+//  current period.
+//
 //  Utitlized mulitple YouTube tutorials to learn about creating a first-time launch view
-
 //  [YouTube Channel] - "Title of Video"
 //  bryce kroecke - "Detecting first time app launch in swift 3.0"
 //  The Swift Guy - "How To Store Data Permanently With User Defaults In xCode 8 (Swift 3.0)"

@@ -1,5 +1,5 @@
 //
-//  CPSC362 Group Project
+//  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
 //  This controller handles the Welcome scene. It initiates during
 //  the application's first time run. Obtains budget amount, start date,

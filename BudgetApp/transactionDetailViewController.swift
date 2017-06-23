@@ -1,5 +1,5 @@
 //
-//  CPSC362 Group Project
+//  CPSC362 - Group Project Sprint 2
 //  Chary Vielma, Vimean Chea, Charles Bucher, Jeffrey Guerra
 //  This controller handles the Transaction Detail scene.
 //  It obtains the description, amount, and date from user
@@ -10,37 +10,101 @@
 //
 //  Utilized tutorial to implement field functionalites.
 //  Credit to Bart Jacobs at cocoacasts.com.
+//  The Swift Guy - "How To Use A Picker View In Xcode 8 (Swift 3.0)"
 //
 
 import UIKit
 import CoreData
 
-class transactionDetailViewController: UIViewController {
+class transactionDetailViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
     //MARK: Properties    
-    @IBOutlet var txtDescription: UITextField!
-    @IBOutlet var txtAmount: UITextField!
-    @IBOutlet var dateDate: UIDatePicker!
+    @IBOutlet weak var txtDescription: UITextField!
+    @IBOutlet weak var txtAmount: UITextField!
+    @IBOutlet weak var dateDate: UIDatePicker!
+    @IBOutlet weak var txtCategory: UITextField!
+    @IBOutlet weak var catPickerView: UIPickerView!
     
+    let categoryPicker = UIPickerView()
     var managedObjectContext: NSManagedObjectContext?
     var transaction: Transaction?
+    
+    
+    // Configure Category picker 
+    
+    let categories = ["Groceries", "Dining", "Gas", "Education", "Housing", "Bills", "Automotive", "Entertainment", "Other"]
     
     //MARK: Initialization    
     override func viewDidLoad() {
         super.viewDidLoad()
+        createCategoryPicker()  // Initialize category picker
+        
         // Add additional setup after loading the view if needed
         if let transaction = transaction
         {
             txtDescription.text = transaction.txtDesc
             txtAmount.text = String(describing: transaction.amount!)
+            
         }
     }
     
+    // Set focus to Description
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         txtDescription.becomeFirstResponder()
     }
+    
+    // Create functions needed for category picker
+    func numberOfComponents(in pickerView: UIPickerView) -> Int
+    {
+        return 1
+    }
+    
+    // Obtain number of rows in each component
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    {
+        return categories.count
+    }
+    
+    // Set text field to the string at array location selected by the user
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        txtCategory.text = categories[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
+    {
+        return categories[row]
+    }
+    
+    // Category
+    func createCategoryPicker()
+    {
+        // Create category toolbar
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        
+        // Done item on toolbar
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(categoryDonePressed))
+        toolbar.setItems([doneButton], animated: false)
+        
+        txtCategory.inputAccessoryView = toolbar
+        
+        // Assign the data/datePicker functions to our periodTypePicker
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        
+        // Assigning period type picker to text field
+        txtCategory.inputView = categoryPicker
+    }
+    
+    // Hide dropdown menu
+    func categoryDonePressed()
+    {
+        self.view.endEditing(true)
+    }
+    
     
     // Cancel button is pressed: return to previous scene
     @IBAction func cancelAsSender(_ sender: UIBarButtonItem) {
@@ -53,6 +117,7 @@ class transactionDetailViewController: UIViewController {
         guard let managedObjectContext = managedObjectContext else { return }
         guard let text = txtDescription.text, !text.isEmpty else { return }
         guard let text2 = txtAmount.text, !text2.isEmpty else { return }
+        guard let cat = txtCategory.text, !cat.isEmpty else {return}
         
         if transaction == nil{
         // Create Transaction
@@ -62,6 +127,7 @@ class transactionDetailViewController: UIViewController {
         transaction.txtDesc = txtDescription.text
         transaction.amount =  NSDecimalNumber(string: txtAmount.text)
         transaction.date = dateDate.date as NSDate
+        transaction.category = txtCategory.text
         }
         
         // Set transaction values
@@ -71,6 +137,8 @@ class transactionDetailViewController: UIViewController {
             transaction.amount =  NSDecimalNumber(string: txtAmount.text)
             
             transaction.date = dateDate.date as NSDate
+            
+            transaction.category = txtCategory.text
         }
         
 
