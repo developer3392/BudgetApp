@@ -33,6 +33,7 @@ class periodSummaryViewController: UIViewController
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var currentBalance: UILabel!
+    @IBOutlet weak var budgetRemainingPeriod: UILabel!
     
     // Declare Core Data persistent container
     private let persistentContainer = NSPersistentContainer(name: "dataModel")
@@ -87,6 +88,10 @@ class periodSummaryViewController: UIViewController
                 self.updateView()
                 self.updateCurrentBalanceLabel()
             }
+            let dateHelper = DateHandler()
+            
+            self.budgetRemainingPeriod.text = "Budget restarts on: " + dateHelper.newStartDateFormatted()
+            
         }
     
         NotificationCenter.default.addObserver(self, selector: #selector(applicationDidEnterBackground(_:)), name: Notification.Name.UIApplicationDidEnterBackground, object: nil)
@@ -171,6 +176,36 @@ class periodSummaryViewController: UIViewController
         
         var amountTotal : Double = 0.00
         
+        /*
+        // 1. Create a fetch request
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Transaction")
+        
+        // 2. Specify an NSPredicate to filter according to your chosen criteria
+        let dateHelper = DateHandler()
+        let startDate = dateHelper.determineStartDateFromComponents()
+        let endDate = dateHelper.calculateNewDate(periodEnd: true)
+        
+        let datePredicate = NSPredicate(format: "(%@ <= date) AND (date < %@)", argumentArray: [startDate, endDate])
+        fetchRequest.predicate = datePredicate
+        
+        // 3. set the resultType to .DictionaryResultType
+        //    This is mimmicking the "Group By" clause in a summation query
+        fetchRequest.resultType = .dictionaryResultType
+        
+        // 4. set the properties to be included in the fetch 
+        //    To get the sum(), this involves creating an NSExpression and associated NSExpressionDescription).
+        let sumExpression = NSExpression(format: "sum:(Amount)")
+        let sumED = NSExpressionDescription()
+        sumED.expression = sumExpression
+        sumED.name = "sumOfAmount"
+        sumED.expressionResultType = .DoubleAttributeType
+        fetch.propertiesToFetch = ["Account_name", sumED]
+        fetch.propertiesToGroupBy = ["Account_name"]
+        let sort = NSSortDescriptor(key: "Account_name", ascending: false)
+        fetch.sortDescriptors = [sort]
+        let results = managedObjectContext?.executeFetchRequest(fetch, error: nil) as NSArray?
+        */
+
         // Step 1:
         // - Create the summing expression on the amount attribute.
         // - Name the expression result as 'amountTotal'.
@@ -183,10 +218,21 @@ class periodSummaryViewController: UIViewController
         
         // Step 2:
         // - Create the fetch request for the Transaction entity.
+        // - Indicate filters by using the predicate property
         // - Indicate that the fetched properties are those that were described in `expression`.
         // - Indicate that the result type is a dictionary.
         
+        // Used to calculate predicate
+        _ = UserDefaults.standard.synchronize()
+        
+        let dateHelper = DateHandler()
+        let startDate = dateHelper.determineStartDateFromComponents()
+        let endDate = dateHelper.calculateNewDate(periodEnd: true)
+        
+        let datePredicate = NSPredicate(format: "(%@ <= date) AND (date < %@)", argumentArray: [startDate, endDate])
+        
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Transaction")
+        fetchRequest.predicate = datePredicate
         fetchRequest.propertiesToFetch = [expression]
         
         fetchRequest.resultType = NSFetchRequestResultType.dictionaryResultType

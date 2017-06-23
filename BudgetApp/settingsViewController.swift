@@ -37,6 +37,9 @@ class settingsViewController: UIViewController
     @IBAction func settingsSubmit(_ sender: Any)
     {
         UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
+        
+        // Ensure all data is written to disk before moving on.
+        _ = UserDefaults.synchronize(UserDefaults.standard)
     }
     
     /*

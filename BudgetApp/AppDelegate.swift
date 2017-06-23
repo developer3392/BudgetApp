@@ -50,27 +50,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             finishedSettingUp = true
             
             // Ensure that period start date is accurate....
-            let today = Date()
-            var go: Bool = true
-
-            while go
-            {
-                let lastPeriodStartDate = DateHandler()
-                let lastPeriodEndDate = lastPeriodStartDate.calculateNewDate(periodType: UserDefaults.standard.string(forKey: "periodType")!, periodEnd: true)
-                
-                // See if we are in this period
-                if today > lastPeriodEndDate
-                {
-                    // We are not - update the period, and loop again.
-                    lastPeriodStartDate.updateStartDate()
-                }
-                else
-                {
-                    // We are in this period! Break out of the loop as the start date is correct.
-                    go = false
-                }
-            }
+            let dateHelper = DateHandler()
+            dateHelper.ensureCurrentPeriod()
         }
+        
+        // Ensure all data is written to disk before moving on.
+        _ = UserDefaults.standard.synchronize()
         
         // Determine which view controller class and storyboard ID to send the user to
         self.window = UIWindow(frame: UIScreen.main.bounds)

@@ -78,12 +78,13 @@ class DateHandler
     }
     
     // Returns either the end period date, or the new period's start date
-    func calculateNewDate(periodType pType: String, periodEnd pEnd: Bool) -> Date
+    func calculateNewDate(periodEnd pEnd: Bool) -> Date
     {
         // Components of the new calculate end date
         var newMonth: Int = self.monthComponent
         var newDay: Int = self.dayComponent
         var newYear: Int = self.yearComponent
+        let periodType = UserDefaults.standard.string(forKey: "periodType")!
         
         // If the periodEnd flag was set, this integer will be 1
         var isPeriodEnd: Int = 0
@@ -93,7 +94,7 @@ class DateHandler
             isPeriodEnd = 1
         }
         
-        switch (pType)
+        switch (periodType)
         {
         case "Weekly":
             // Add 7 to the current day
@@ -205,7 +206,7 @@ class DateHandler
     func updateStartDate()
     {
         // Find new start date date. Note the periodEnd flag is false
-        let newStartDate = self.calculateNewDate(periodType: UserDefaults.standard.string(forKey: "periodType")!, periodEnd: false)
+        let newStartDate = self.calculateNewDate(periodEnd: false)
         
         // Parse out the new start date components
         let newStartDateComponents = self.determineComponentsFromDate(dateToParse: newStartDate)
@@ -214,6 +215,65 @@ class DateHandler
         UserDefaults.standard.set(newStartDateComponents.month, forKey: "startDateMonth")
         UserDefaults.standard.set(newStartDateComponents.day, forKey: "startDateDay")
         UserDefaults.standard.set(newStartDateComponents.year, forKey: "startDateYear")
+    }
+    
+    func ensureCurrentPeriod()
+    {
+        // Ensure that period start date is accurate....
+        let today = Date()
+        var go: Bool = true
+        
+        while go
+        {
+            let lastPeriodEndDate = self.calculateNewDate(periodEnd: true)
+            
+            // See if we are in this period
+            if today > lastPeriodEndDate
+            {
+                // We are not - update the period, and loop again.
+                self.updateStartDate()
+            }
+            else
+            {
+                // We are in this period! Break out of the loop as the start date is correct.
+                go = false
+            }
+        }
+    }
+    
+    // Returns the number of days left in the period!
+    func daysLeftInPeriod() -> Int
+    {
+        var retVal: Int = 0
+        let endDate = self.calculateNewDate(periodEnd: true)
+        let endDateComponenets = self.determineComponentsFromDate(dateToParse: endDate)
+    
+        if endDateComponenets.day < self.dayComponent // End date is in the next month
+        {
+            retVal = monthDays(month: self.monthComponent) - self.dayComponent
+            retVal += endDateComponenets.day
+        }
+        else // End date is in same month as start date
+        {
+            retVal = endDateComponenets.day - self.dayComponent
+        }
+        
+        return retVal
+    }
+    
+    // Returns a formatted period end date
+    func newStartDateFormatted() -> String
+    {
+        // Find period end date
+        let endDate = self.calculateNewDate(periodEnd: false)
+        
+        // Format date picker
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .none
+        
+        // Set text box value
+        return dateFormatter.string(from: endDate)
     }
     
     // Returns the number of days in each month
