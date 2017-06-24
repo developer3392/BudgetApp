@@ -48,6 +48,17 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
             txtDescription.text = transaction.txtDesc
             txtAmount.text = String(describing: transaction.amount!)
             
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .none
+            
+    
+            // Set text box value
+            dDate.text = dateFormatter.string(for: transaction.date)
+            txtCategory.text = transaction.category
+
+            self.view.endEditing(true)
+            
         }
     }
     
@@ -74,13 +85,33 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     // Set text field to the string at array location selected by the user
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
-        txtCategory.text = categories[row]
+        if pickerView == categoryPicker{
+        self.txtCategory.text = self.categories[row]
+            categoryPicker.isHidden = true
+      /*  }
+        else if pickerView == datePicker{
+            self.dDate.text = self.*/
+        }
+ 
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField)
+    {
+       if(textField == self.txtCategory)
+       {
+            self.categoryPicker.isHidden = false
+       }
+        else if (textField == self.dDate)
+       {
+            self.datePicker.isHidden = false
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
     {
         return categories[row]
     }
+    
     
     // Date
     func createDatePicker()
