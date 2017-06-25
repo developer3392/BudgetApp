@@ -24,6 +24,10 @@ class summaryTableViewCell: UITableViewCell
  
     override func awakeFromNib()
     {
+        self.txtDescription.font = UIFont(name: "OpenSans-Regular", size: 12)
+        self.txtAmount.font = UIFont(name: "OpenSans-Regular", size: 12)
+        //self.txtDate.font = UIFont(name: "OpenSans-Regular", size: 12)
+        self.txtCat.font = UIFont(name: "OpenSans-Regular", size: 12)
         super.awakeFromNib()
     }
 }

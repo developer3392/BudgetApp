@@ -62,6 +62,11 @@ class periodSummaryViewController: UIViewController
     {
         super.viewDidLoad()
         
+        //set the background color
+        self.view.backgroundColor = UIColor(red: 215.0/255.0, green: 229.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+        
+
+        
         persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
             // Report error if unable to load
             if let error = error
@@ -270,7 +275,15 @@ class periodSummaryViewController: UIViewController
         let balance = budgetedAmount - transactionsTotal
         
         // Update label
-        currentBalance.text = String(String(format: "$%.2f", balance))
+        if balance >= 0{
+            currentBalance.text = String(String(format: "$%.2f", balance))
+            currentBalance.textColor = UIColor.blue
+        }
+        else if balance < 0
+        {
+            currentBalance.text = String(String(format: "$%.2f", balance))
+            currentBalance.textColor = UIColor.red
+        }
     }
 }
 

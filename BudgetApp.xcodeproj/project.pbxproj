@@ -18,6 +18,11 @@
 		937F406D1EECE98300C7BD93 /* periodSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F406C1EECE98300C7BD93 /* periodSummaryViewController.swift */; };
 		937F406F1EECE9D600C7BD93 /* transactionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F406E1EECE9D600C7BD93 /* transactionDetailViewController.swift */; };
 		937F40711EECF06F00C7BD93 /* summaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937F40701EECF06F00C7BD93 /* summaryTableViewCell.swift */; };
+		A63A5FAD1EFF482A004BFAC0 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A63A5FAC1EFF482A004BFAC0 /* OpenSans-Bold.ttf */; };
+		A63A5FAF1EFF483D004BFAC0 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A63A5FAE1EFF483D004BFAC0 /* OpenSans-Light.ttf */; };
+		A63A5FB11EFF484F004BFAC0 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A63A5FB01EFF484F004BFAC0 /* OpenSans-Regular.ttf */; };
+		A63A5FB31EFF4875004BFAC0 /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A63A5FB21EFF4875004BFAC0 /* OpenSans-ExtraBold.ttf */; };
+		A63A5FB51EFF4887004BFAC0 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = A63A5FB41EFF4887004BFAC0 /* logo.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +39,11 @@
 		937F406C1EECE98300C7BD93 /* periodSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = periodSummaryViewController.swift; sourceTree = "<group>"; };
 		937F406E1EECE9D600C7BD93 /* transactionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = transactionDetailViewController.swift; sourceTree = "<group>"; };
 		937F40701EECF06F00C7BD93 /* summaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = summaryTableViewCell.swift; sourceTree = "<group>"; };
+		A63A5FAC1EFF482A004BFAC0 /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		A63A5FAE1EFF483D004BFAC0 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		A63A5FB01EFF484F004BFAC0 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		A63A5FB21EFF4875004BFAC0 /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		A63A5FB41EFF4887004BFAC0 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +76,7 @@
 		937F40471EECC93600C7BD93 /* BudgetApp */ = {
 			isa = PBXGroup;
 			children = (
+				A63A5FAB1EFF4762004BFAC0 /* Font */,
 				937F40481EECC93600C7BD93 /* AppDelegate.swift */,
 				937F406E1EECE9D600C7BD93 /* transactionDetailViewController.swift */,
 				937F406C1EECE98300C7BD93 /* periodSummaryViewController.swift */,
@@ -80,6 +91,18 @@
 				937F40571EECC93600C7BD93 /* Info.plist */,
 			);
 			path = BudgetApp;
+			sourceTree = "<group>";
+		};
+		A63A5FAB1EFF4762004BFAC0 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				A63A5FAE1EFF483D004BFAC0 /* OpenSans-Light.ttf */,
+				A63A5FB21EFF4875004BFAC0 /* OpenSans-ExtraBold.ttf */,
+				A63A5FB41EFF4887004BFAC0 /* logo.png */,
+				A63A5FAC1EFF482A004BFAC0 /* OpenSans-Bold.ttf */,
+				A63A5FB01EFF484F004BFAC0 /* OpenSans-Regular.ttf */,
+			);
+			name = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +166,11 @@
 			files = (
 				937F40561EECC93600C7BD93 /* LaunchScreen.storyboard in Resources */,
 				937F40531EECC93600C7BD93 /* Assets.xcassets in Resources */,
+				A63A5FB31EFF4875004BFAC0 /* OpenSans-ExtraBold.ttf in Resources */,
+				A63A5FAD1EFF482A004BFAC0 /* OpenSans-Bold.ttf in Resources */,
+				A63A5FB51EFF4887004BFAC0 /* logo.png in Resources */,
+				A63A5FAF1EFF483D004BFAC0 /* OpenSans-Light.ttf in Resources */,
+				A63A5FB11EFF484F004BFAC0 /* OpenSans-Regular.ttf in Resources */,
 				937F404E1EECC93600C7BD93 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

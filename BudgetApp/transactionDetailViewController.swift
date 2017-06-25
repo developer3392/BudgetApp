@@ -42,6 +42,13 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
         createCategoryPicker()  // Initialize category picker
         createDatePicker() // Initialize date picker
         
+        //change font style
+        self.txtDescription.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.txtAmount.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.txtCategory.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.dDate.font = UIFont(name: "OpenSans-Light", size: 12)
+        
+                
         // Add additional setup after loading the view if needed
         if let transaction = transaction
         {
@@ -59,6 +66,11 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
 
             self.view.endEditing(true)
             
+            
+            //set the background color
+            self.view.backgroundColor = UIColor(red: 215.0/255.0, green: 229.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+            
+
         }
     }
     

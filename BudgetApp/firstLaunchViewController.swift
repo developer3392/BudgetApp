@@ -38,6 +38,15 @@ class firstLaunchViewController: UIViewController, UIPickerViewDataSource, UIPic
     {
         super.viewDidLoad()
         
+        //set the background color
+        self.view.backgroundColor = UIColor(red: 215.0/255.0, green: 229.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+        
+        self.budgetAmount.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.periodType.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.startDate.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.dataValidationMessage.font = UIFont(name: "OpenSans-Light", size: 12)
+    
+        
         createStartDatePicker()
         createPeriodTypePicker()
     }

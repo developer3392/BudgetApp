@@ -21,6 +21,14 @@ class settingsViewController: UIViewController
 
     override func viewDidLoad()
     {
+        //set the background color
+        self.view.backgroundColor = UIColor(red: 215.0/255.0, green: 229.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+        
+        //set the font style
+        self.currentBudget.font = UIFont(name: "OpenSans-Light", size: 12)
+        self.newBudget.font = UIFont(name: "OpenSans-Light",size: 12)
+        self.dataValidationMessage.font = UIFont(name: "OpenSans-Light", size: 12)
+        
         let budgetAmt = UserDefaults.standard.double(forKey:"budgetAmount")
         currentBudget.text = String(String(format: "$%.2f", budgetAmt))
         super.viewDidLoad()

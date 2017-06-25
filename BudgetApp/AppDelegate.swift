@@ -35,6 +35,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool
     {
+        //How to set navigation background color in AppDelegate
+        UINavigationBar.appearance().barTintColor = UIColor(red: 109.0/255.0, green: 158.0/255.0, blue: 235.0/255.0, alpha: 1.0)
+        
+        //How to set navigation bar color in AppDelegate
+        UINavigationBar.appearance().tintColor = UIColor.white
+        
+        //How to set navigation bar title text color in AppDelegate
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.white]
+        
+        //How to set status bar light Content in AppDelegate
+        //set the View Controller-based status bar appearance
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+
         // Edit firstLaunch/launcedBefore variables
         // Since the initializer for UserDefaults.bool values is false, then if launchedBefore is false, then
         // this must be the first time the app was launched, so set firstLaunch to true
