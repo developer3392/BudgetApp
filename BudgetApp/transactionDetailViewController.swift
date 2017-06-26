@@ -100,10 +100,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     {
         if pickerView == categoryPicker{
         self.txtCategory.text = self.categories[row]
-            categoryPicker.isHidden = true
-      /*  }
-        else if pickerView == datePicker{
-            self.dDate.text = self.*/
+            //categoryPicker.isHidden = true
         }
  
     }
