@@ -59,23 +59,30 @@ class settingsViewController: UIViewController
     // Will perform data validation, as well as saving newly entered amount to User Defaults class
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool
     {
-        let safeAmount: Double = Double(newBudget.text!) ?? 0.00
-    
-        if safeAmount <= 0
+        if identifier == "cancelSegue"
         {
-            dataValidationMessage.text = "One or more fields were not entered correctly. Please try again."
-            return false // User is not ready to seque, as they didn't enter a valid budget amount
+            return true
         }
         else
         {
-            // Update user defaults
-            UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
-            
-            // Save to disk
-            UserDefaults.standard.synchronize()
-            
-            dataValidationMessage.text = ""
-            return true // User is ready to segue as they entered a valid amount
+            let safeAmount: Double = Double(newBudget.text!) ?? 0.00
+        
+            if safeAmount <= 0
+            {
+                dataValidationMessage.text = "One or more fields were not entered correctly. Please try again."
+                return false // User is not ready to seque, as they didn't enter a valid budget amount
+            }
+            else
+            {
+                // Update user defaults
+                UserDefaults.standard.set(Double(newBudget.text!), forKey:"budgetAmount")
+                
+                // Save to disk
+                UserDefaults.standard.synchronize()
+                
+                dataValidationMessage.text = ""
+                return true // User is ready to segue as they entered a valid amount
+            }
         }
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -230,7 +230,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yek-cq-jxj">
-                                <rect key="frame" x="51.5" y="154" width="69.5" height="30"/>
+                                <rect key="frame" x="52" y="154" width="69" height="30"/>
                                 <fontDescription key="fontDescription" name="OpenSans-Light" family="Open Sans" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.11241585060000001" blue="0.042445304759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -404,7 +404,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navControll" automaticallyAdjustsScrollViewInsets="NO" id="T07-cE-BrM" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FLC-KB-jsj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FLC-KB-jsj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -434,7 +434,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Cancel"/>
                                 <connections>
-                                    <segue destination="8zq-f6-K5G" kind="show" id="XwR-d8-6Wa"/>
+                                    <segue destination="8zq-f6-K5G" kind="show" identifier="cancelSegue" id="XwR-d8-6Wa"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Budget:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vrE-uM-FDy">
@@ -478,7 +478,7 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="settingsSubmit:" destination="0Gh-98-J4E" eventType="touchUpInside" id="zLb-L0-rgA"/>
-                                    <segue destination="8zq-f6-K5G" kind="show" id="J2z-Kp-72m"/>
+                                    <segue destination="8zq-f6-K5G" kind="show" identifier="submitSegue" id="J2z-Kp-72m"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -499,7 +499,7 @@
         <image name="logo.png" width="335" height="348"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="XwR-d8-6Wa"/>
         <segue reference="H1N-1T-Ige"/>
-        <segue reference="cA3-9V-2Qo"/>
     </inferredMetricsTieBreakers>
 </document>
