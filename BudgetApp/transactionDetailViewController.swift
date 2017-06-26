@@ -29,6 +29,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     private var startDate_DateType: Date?
     var managedObjectContext: NSManagedObjectContext?
     var transaction: Transaction?
+    var transDate: Date? = nil // Stores the transaction date to set the default value of the date picker
     
     
     // Configure Category picker 
@@ -39,8 +40,6 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        createCategoryPicker()  // Initialize category picker
-        createDatePicker() // Initialize date picker
         
         //change font style
         self.txtDescription.font = UIFont(name: "OpenSans-Light", size: 12)
@@ -61,6 +60,7 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
             
     
             // Set text box value
+            transDate = transaction.date! as Date
             dDate.text = dateFormatter.string(for: transaction.date)
             txtCategory.text = transaction.category
 
@@ -69,9 +69,10 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
             
             //set the background color
             self.view.backgroundColor = UIColor(red: 215.0/255.0, green: 229.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-            
-
         }
+        
+        createCategoryPicker()  // Initialize category picker
+        createDatePicker() // Initialize date picker
     }
     
     // Set focus to Description
@@ -130,6 +131,12 @@ class transactionDetailViewController: UIViewController, UIPickerViewDataSource,
     {
         // Format date picker
         datePicker.datePickerMode = .date
+        
+        // Initialize date if there is currently a value
+        if transaction != nil
+        {
+            datePicker.date = transDate!
+        }
         
         // Create date picker toolbar
         let toolbar = UIToolbar()

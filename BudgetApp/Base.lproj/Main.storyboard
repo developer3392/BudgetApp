@@ -404,7 +404,7 @@
             <objects>
                 <navigationController storyboardIdentifier="navControll" automaticallyAdjustsScrollViewInsets="NO" id="T07-cE-BrM" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FLC-KB-jsj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="FLC-KB-jsj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
