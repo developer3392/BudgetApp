@@ -183,36 +183,6 @@ class periodSummaryViewController: UIViewController
         }
         
         var amountTotal : Double = 0.00
-        
-        /*
-        // 1. Create a fetch request
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Transaction")
-        
-        // 2. Specify an NSPredicate to filter according to your chosen criteria
-        let dateHelper = DateHandler()
-        let startDate = dateHelper.determineStartDateFromComponents()
-        let endDate = dateHelper.calculateNewDate(periodEnd: true)
-        
-        let datePredicate = NSPredicate(format: "(%@ <= date) AND (date < %@)", argumentArray: [startDate, endDate])
-        fetchRequest.predicate = datePredicate
-        
-        // 3. set the resultType to .DictionaryResultType
-        //    This is mimmicking the "Group By" clause in a summation query
-        fetchRequest.resultType = .dictionaryResultType
-        
-        // 4. set the properties to be included in the fetch 
-        //    To get the sum(), this involves creating an NSExpression and associated NSExpressionDescription).
-        let sumExpression = NSExpression(format: "sum:(Amount)")
-        let sumED = NSExpressionDescription()
-        sumED.expression = sumExpression
-        sumED.name = "sumOfAmount"
-        sumED.expressionResultType = .DoubleAttributeType
-        fetch.propertiesToFetch = ["Account_name", sumED]
-        fetch.propertiesToGroupBy = ["Account_name"]
-        let sort = NSSortDescriptor(key: "Account_name", ascending: false)
-        fetch.sortDescriptors = [sort]
-        let results = managedObjectContext?.executeFetchRequest(fetch, error: nil) as NSArray?
-        */
 
         // Step 1:
         // - Create the summing expression on the amount attribute.
