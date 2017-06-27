@@ -95,7 +95,7 @@ class periodSummaryViewController: UIViewController
             }
             let dateHelper = DateHandler()
             
-            self.budgetRemainingPeriod.text = "Budget restarts on: " + dateHelper.newStartDateFormatted()
+            self.budgetRemainingPeriod.text = "Budget resets on: " + dateHelper.newStartDateFormatted()
             
         }
     
