@@ -33,8 +33,6 @@ class periodSummaryViewController: UIViewController
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var currentBalance: UILabel!
-    @IBOutlet weak var budgetAmount: UILabel!
-    @IBOutlet weak var totalExpenses: UILabel!
     @IBOutlet weak var budgetRemainingPeriod: UILabel!
     
     // Declare Core Data persistent container
@@ -93,6 +91,7 @@ class periodSummaryViewController: UIViewController
                 }
             
                 self.updateView()
+                self.updateCurrentBalanceLabel()
             }
             let dateHelper = DateHandler()
             
@@ -130,6 +129,7 @@ class periodSummaryViewController: UIViewController
     private func setupView()
     {
         updateView()
+        updateCurrentBalanceLabel()
     }
 
     fileprivate func updateView()
@@ -144,9 +144,7 @@ class periodSummaryViewController: UIViewController
         
         
         tableView.isHidden = !hasTransactions
-        self.updateCurrentBalanceLabel()
-        self.updateTotalTransactionsLabel()
-        self.updateBudgetAmountLabel()
+        updateCurrentBalanceLabel()
     }
     
     // Report memory warning concerning available space to the view controller
@@ -238,26 +236,6 @@ class periodSummaryViewController: UIViewController
         return amountTotal
     }
     
-    // Called to update the budget amount label.
-    func updateBudgetAmountLabel()
-    {
-        // Pull budgetAmount from User Defaults
-        let budgetedAmount: Double = UserDefaults.standard.double(forKey: "budgetAmount")
-        
-        // Update label
-        self.budgetAmount.text = String(String(format: "$%.2f", budgetedAmount))
-    }
-    
-    // Called to update the total transactions label.
-    func updateTotalTransactionsLabel()
-    {
-        // Find total transcations using helper functioin
-        let transactionsTotal: Double = sumTransactions()
-        
-        // Update label
-        self.totalExpenses.text = String(String(format: "$%.2f", transactionsTotal))
-    }
-    
     // Called to update the current balance label.
     func updateCurrentBalanceLabel()
     {
@@ -267,13 +245,13 @@ class periodSummaryViewController: UIViewController
         let balance = budgetedAmount - transactionsTotal
         
         // Update label
-        currentBalance.text = String(String(format: "$%.2f", balance))
-        
         if balance >= 0{
+            currentBalance.text = String(String(format: "$%.2f", balance))
             currentBalance.textColor = UIColor.blue
         }
         else if balance < 0
         {
+            currentBalance.text = String(String(format: "$%.2f", balance))
             currentBalance.textColor = UIColor.red
         }
     }
